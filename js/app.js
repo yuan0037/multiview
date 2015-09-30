@@ -1,11 +1,45 @@
 (function () {
-    var app = angular.module('todolist', []);
+    var app = angular.module('todolist', ['ngRoute']);
+
+    app.config(function ($routeProvider, $locationProvider) {
+        $routeProvider
+            .when('/', {
+                templateUrl: 'products.html',
+                controller: 'ListController',
+                activetab: 'products'
+            })
+            .when('/ListProducts', {
+                templateUrl: 'products.html',
+                controller: 'ListController',
+                activetab: 'products'
+            })
+            .when('/ListServices', {
+                templateUrl: 'services.html',
+                controller: 'ListController',
+                activetab: 'services'
+            })
+            .when('/ListMiscs', {
+                templateUrl: 'miscs.html',
+                controller: 'ListController',
+                activetab: 'miscs'
+            });
+        $routeProvider.otherwise({
+            redirectTo: '/'
+        });
+    });
+
+    app.controller('MainController', function ($scope, $route, $routeParams, $location) {
+        $scope.$route = $route;
+        $scope.$location = $location;
+        $scope.$routeParams = $routeParams;
+    })
+
     app.controller('ListController', function () {
 
         this.productItems = {};
         this.serviceItems = {};
         this.miscItems = {};
-        this.tab = 1; 
+        this.tab = 1;
 
 
         this.addItem = function (itemKind) {
@@ -98,13 +132,13 @@
             }
         }
 
-        this.openTab = function (tabID, itemKind){
-            this.tab = tabID; 
+        this.openTab = function (tabID, itemKind) {
+            this.tab = tabID;
             this.reloadItems(itemKind);
         }
-                
+
         this.reloadItems("");
-        
+
 
     });
 
