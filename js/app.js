@@ -1,26 +1,26 @@
 (function () {
     var app = angular.module('todolist', ['ngRoute']);
-
+    
     app.config(function ($routeProvider, $locationProvider) {
         $routeProvider
             .when('/', {
                 templateUrl: 'products.html',
-                controller: 'ListController',
+                controller: 'ListController as list',
                 activetab: 'products'
             })
             .when('/ListProducts', {
                 templateUrl: 'products.html',
-                controller: 'ListController',
+                controller: 'ListController as list',
                 activetab: 'products'
             })
             .when('/ListServices', {
                 templateUrl: 'services.html',
-                controller: 'ListController',
+                controller: 'ListController as list',
                 activetab: 'services'
             })
             .when('/ListMiscs', {
                 templateUrl: 'miscs.html',
-                controller: 'ListController',
+                controller: 'ListController as list',
                 activetab: 'miscs'
             });
         $routeProvider.otherwise({
@@ -59,13 +59,10 @@
         this.removeItem = function (index, itemKind) {
             if (itemKind === "product") {
                 this.productItems.splice(index, 1);
-                //localStorage.setItem("yuan0037-productItems", JSON.stringify(this.productItems));
             } else if (itemKind === "service") {
                 this.serviceItems.splice(index, 1);
-                //localStorage.setItem("yuan0037-serviceItems", JSON.stringify(this.serviceItems));
             } else {
                 this.miscItems.splice(index, 1);
-                //localStorage.setItem("yuan0037-miscItems", JSON.stringify(this.miscItems));
             }
 
             this.saveToStorage(itemKind);
